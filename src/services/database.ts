@@ -16,7 +16,7 @@ export interface DatabaseService {
 
 class SupabaseService implements DatabaseService {
   async saveWorkouts(workouts: Workout[]): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -34,7 +34,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async loadWorkouts(): Promise<Workout[]> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -55,7 +55,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async saveWorkout(workout: Workout): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -73,7 +73,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async deleteWorkout(workoutId: string): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -88,7 +88,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async saveAssignments(assignments: WorkoutAssignment[]): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -105,7 +105,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async loadAssignments(): Promise<WorkoutAssignment[]> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -126,7 +126,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async saveAssignment(assignment: WorkoutAssignment): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -144,7 +144,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async updateAssignmentDone(date: string, done: boolean): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -159,7 +159,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async deleteAssignment(date: string): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
@@ -174,7 +174,7 @@ class SupabaseService implements DatabaseService {
   }
 
   async deleteAssignmentsByMonth(year: number, month: number): Promise<void> {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       throw new Error('Supabase not configured');
     }
 
