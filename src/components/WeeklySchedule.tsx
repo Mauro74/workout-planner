@@ -71,7 +71,7 @@ export const WeeklySchedule = ({
       {!isCurrentWeek() && (
         <CurrentMonthButton onClick={onGoToToday}>
           <ButtonIcon color="var(--color-warning)" size={16} icon={MdCalendarToday} />
-          <span>Current Week</span>
+          <span>Current Week - test deploy</span>
         </CurrentMonthButton>
       )}
 
