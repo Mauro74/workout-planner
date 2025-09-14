@@ -14,7 +14,7 @@ import { WorkoutDetailsModal } from './components/WorkoutDetailsModal';
 import type { Workout } from './types';
 import { useWorkoutStore } from './stores/workoutStore';
 import { Navigation } from './components/Navigation';
-import { MdOutlineFitnessCenter, MdOutlineSchedule } from 'react-icons/md';
+import { MdOutlineCheckCircle, MdOutlineFitnessCenter, MdOutlineSchedule } from 'react-icons/md';
 
 function App() {
   const {
@@ -102,9 +102,13 @@ function App() {
     }
   };
 
-  // Get the current workout assignment to check if it's done
+  // Get the current workout assignment to check if it's done (for WorkoutDetailsModal)
   const currentAssignment = selectedWorkoutDate ? workoutAssignments.find((a) => a.date === selectedWorkoutDate) : null;
   const isDone = currentAssignment?.done || false;
+
+  // Get the assignment for the selected date (for ActionButtonWrapper)
+  const selectedDateAssignment = selectedDate ? workoutAssignments.find((a) => a.date === selectedDate) : null;
+  const isSelectedDateDone = selectedDateAssignment?.done || false;
 
   const handleCloseWorkoutDetails = () => {
     setIsWorkoutDetailsModalOpen(false);
@@ -178,13 +182,30 @@ function App() {
         </SlideView>
       </ViewContainer>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={`${selectedWorkout?.name || ''}`}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={
+          isSelectedDateDone ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+              <span>{selectedWorkout?.name} -</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                Completed
+                <MdOutlineCheckCircle size={20} />
+              </span>
+            </div>
+          ) : (
+            selectedWorkout?.name
+          )
+        }
+      >
         {selectedWorkout && (
           <>
             <ExerciseList
               workout={selectedWorkout}
               onExerciseUpdate={updateExercise}
               onMaxRepsBlur={handleMaxRepsBlur}
+              isSelectedDateDone={isSelectedDateDone}
             />
 
             <ActionButtonWrapper
@@ -195,6 +216,7 @@ function App() {
               onSaveWorkoutChanges={handleSaveWorkoutChanges}
               onRemoveWorkout={removeWorkout}
               onAssignWorkout={assignWorkout}
+              isDone={isSelectedDateDone}
             />
           </>
         )}

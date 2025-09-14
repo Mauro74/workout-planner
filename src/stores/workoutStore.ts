@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import { databaseService, migrateFromLocalStorage } from '../services/database';
+import { isSupabaseConfigured } from '../config/supabase';
 import type { Workout, WorkoutAssignment } from '../types';
 import { DEFAULT_WORKOUTS } from '../types';
 import { formatDate } from '../utils/dateUtils';
@@ -97,11 +98,20 @@ export const useWorkoutStore = create<WorkoutStore>()(
         loadData: async () => {
           set({ isLoading: true, error: null });
           try {
+            // Log configuration status for debugging
+            console.log('Loading data...');
+            console.log('Supabase configured:', isSupabaseConfigured());
+            console.log('Database service type:', isSupabaseConfigured() ? 'Supabase' : 'LocalStorage');
+            
             await migrateFromLocalStorage();
             const [workouts, assignments] = await Promise.all([
               databaseService.loadWorkouts(),
               databaseService.loadAssignments(),
             ]);
+            
+            console.log('Loaded workouts:', workouts.length);
+            console.log('Loaded assignments:', assignments.length);
+            
             set({
               workouts: workouts.length > 0 ? workouts : DEFAULT_WORKOUTS,
               workoutAssignments: assignments,

@@ -3,47 +3,47 @@ import styled from 'styled-components';
 // Color Variables
 const colors = {
   // Primary colors
-  primary: '#667eea',
-  primaryHover: '#5a6fd8',
-  accent: '#ff8c00',
-  accentHover: '#ff7f00',
-  warning: '#FFC107',
-  success: '#4CAF50',
+  primary: 'rgba(102, 126, 234, 1)',
+  primaryHover: 'rgba(90, 111, 216, 1)',
+  accent: 'rgba(255, 140, 0, 1)',
+  accentHover: 'rgba(255, 127, 0, 1)',
+  warning: 'rgba(255, 193, 7, 1)',
+  success: 'rgba(76, 175, 80, 1)',
 
   // Background colors
-  background: '#1a1a1a',
-  backgroundSecondary: '#2d2d2d',
-  card: '#333333',
-  cardSecondary: '#2a2a2a',
-  input: '#2a2a2a',
+  background: 'rgba(26, 26, 26, 1)',
+  backgroundSecondary: 'rgba(45, 45, 45, 1)',
+  card: 'rgba(51, 51, 51, 1)',
+  cardSecondary: 'rgba(42, 42, 42, 1)',
+  input: 'rgba(42, 42, 42, 1)',
 
   // Text colors
-  textPrimary: '#ffffff',
-  textSecondary: '#cccccc',
-  textTertiary: '#a0a0a0',
-  textMuted: '#999999',
-  textDisabled: '#666666',
-  textDark: '#333333',
+  textPrimary: 'rgba(255, 255, 255, 1)',
+  textSecondary: 'rgba(204, 204, 204, 1)',
+  textTertiary: 'rgba(160, 160, 160, 1)',
+  textMuted: 'rgba(153, 153, 153, 1)',
+  textDisabled: 'rgba(102, 102, 102, 1)',
+  textDark: 'rgba(51, 51, 51, 1)',
 
   // Border colors
   border: 'rgba(255, 255, 255, 0.1)',
-  borderSecondary: '#555555',
-  borderLight: '#e9ecef',
+  borderSecondary: 'rgba(85, 85, 85, 1)',
+  borderLight: 'rgba(233, 236, 239, 1)',
 
   // State colors
-  selected: '#667eea',
-  today: '#FFC107',
-  past: '#f0f0f0',
-  pastText: '#cccccc',
-  hover: '#e0e0e0',
+  selected: 'rgba(102, 126, 234, 1)',
+  today: 'rgba(255, 193, 7, 1)',
+  past: 'rgba(240, 240, 240, 1)',
+  pastText: 'rgba(204, 204, 204, 1)',
+  hover: 'rgba(224, 224, 224, 1)',
   hoverSecondary: 'rgba(255, 255, 255, 0.1)',
 
   // Neutral colors
-  white: '#ffffff',
-  lightGray: '#f8f9fa',
-  mediumGray: '#f5f5f5',
-  darkGray: '#dfdfdf',
-  darkerGray: '#666666',
+  white: 'rgba(255, 255, 255, 1)',
+  lightGray: 'rgba(248, 249, 250, 1)',
+  mediumGray: 'rgba(245, 245, 245, 1)',
+  darkGray: 'rgba(223, 223, 223, 1)',
+  darkerGray: 'rgba(102, 102, 102, 1)',
 
   // Shadow colors
   shadowLight: 'rgba(0, 0, 0, 0.15)',
@@ -219,6 +219,16 @@ export const DateButton = styled.button<{
   }
 `;
 
+export const Pill = styled.div`
+  background: ${colors.cardSecondary};
+  color: ${colors.warning};
+  border: 2px solid ${colors.warning};
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+`;
+
 export const Legend = styled.div`
   display: flex;
   justify-content: center;
@@ -363,6 +373,13 @@ export const Input = styled.input`
 
   &::placeholder {
     color: ${colors.textMuted};
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 `;
 

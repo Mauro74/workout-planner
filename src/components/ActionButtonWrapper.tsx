@@ -1,4 +1,4 @@
-import { ActionButtonWrapper as StyledActionButtonWrapper, ActionButton } from '../styles';
+import { ActionButtonWrapper as StyledActionButtonWrapper, ActionButton, Pill } from '../styles';
 import { formatDate } from '../utils/dateUtils';
 import type { Workout, WorkoutAssignment } from '../types';
 import { MdDeleteForever, MdSave } from 'react-icons/md';
@@ -11,6 +11,7 @@ interface ActionButtonWrapperProps {
   onSaveWorkoutChanges: () => void;
   onRemoveWorkout: () => void;
   onAssignWorkout: () => void;
+  isDone: boolean;
 }
 
 export const ActionButtonWrapper = ({
@@ -21,6 +22,7 @@ export const ActionButtonWrapper = ({
   onSaveWorkoutChanges,
   onRemoveWorkout,
   onAssignWorkout,
+  isDone,
 }: ActionButtonWrapperProps) => {
   if (!selectedWorkout) return null;
 
@@ -28,34 +30,32 @@ export const ActionButtonWrapper = ({
     <StyledActionButtonWrapper>
       {selectedDate ? (
         <>
+          {/* {isDone && <Pill>Workout Completed</Pill>} */}
           {selectedWorkout?.id === workoutAssignments.find((a) => a.date === selectedDate)?.workoutId ? (
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <ActionButton onClick={onSaveWorkoutChanges}>
-                <MdSave size={20} />
-                Save
-              </ActionButton>
-              <ActionButton
-                onClick={onRemoveWorkout}
-                style={{
-                  background: 'var(--color-danger)',
-                }}
-              >
-                <MdDeleteForever size={24} />
-                Delete
-              </ActionButton>
+              {!isDone ? (
+                <>
+                  <ActionButton onClick={onSaveWorkoutChanges}>
+                    <MdSave size={20} />
+                    Save
+                  </ActionButton>
+                  <ActionButton
+                    onClick={onRemoveWorkout}
+                    style={{
+                      background: 'var(--color-danger)',
+                    }}
+                  >
+                    <MdDeleteForever size={24} />
+                    Delete
+                  </ActionButton>
+                </>
+              ) : null}
             </div>
           ) : !hasAssignedWorkout ? (
             <ActionButton onClick={onAssignWorkout}>
               Assign {selectedWorkout.name} to {formatDate(selectedDate)}
             </ActionButton>
-          ) : (
-            <ActionButton
-              onClick={onAssignWorkout}
-              style={{ backgroundColor: 'var(--color-warning)', color: 'var(--color-warning-text)' }}
-            >
-              Replace current workout with {selectedWorkout.name}
-            </ActionButton>
-          )}
+          ) : null}
         </>
       ) : (
         <ActionButton disabled>Select a date first</ActionButton>

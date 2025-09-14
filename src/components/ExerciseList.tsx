@@ -17,9 +17,10 @@ interface ExerciseListProps {
     value: string
   ) => void;
   onMaxRepsBlur: (workoutId: string, exerciseId: string, value: string) => void;
+  isSelectedDateDone: boolean;
 }
 
-export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur }: ExerciseListProps) => {
+export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur, isSelectedDateDone }: ExerciseListProps) => {
   return (
     <StyledExerciseList>
       {workout.exercises.map((exercise) => (
@@ -34,6 +35,7 @@ export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur }: Exerc
                 value={exercise.sets}
                 onChange={(e) => onExerciseUpdate(workout.id, exercise.id, 'sets', e.target.value)}
                 placeholder="3"
+                disabled={isSelectedDateDone}
               />
             </ExerciseField>
             <ExerciseField>
@@ -44,6 +46,7 @@ export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur }: Exerc
                 value={exercise.minReps}
                 onChange={(e) => onExerciseUpdate(workout.id, exercise.id, 'minReps', e.target.value)}
                 placeholder="8"
+                disabled={isSelectedDateDone}
               />
             </ExerciseField>
             <ExerciseField>
@@ -55,6 +58,7 @@ export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur }: Exerc
                 onChange={(e) => onExerciseUpdate(workout.id, exercise.id, 'maxReps', e.target.value)}
                 onBlur={(e) => onMaxRepsBlur(workout.id, exercise.id, e.target.value)}
                 placeholder="12"
+                disabled={isSelectedDateDone}
               />
             </ExerciseField>
             <ExerciseField>
@@ -65,6 +69,7 @@ export const ExerciseList = ({ workout, onExerciseUpdate, onMaxRepsBlur }: Exerc
                 value={exercise.weight}
                 onChange={(e) => onExerciseUpdate(workout.id, exercise.id, 'weight', e.target.value)}
                 placeholder={exercise.weight}
+                disabled={isSelectedDateDone}
               />
             </ExerciseField>
           </ExerciseDetails>
