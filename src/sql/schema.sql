@@ -2,8 +2,7 @@
 -- Run this in your Supabase SQL Editor
 
 -- Enable Row Level Security
-ALTER TABLE IF EXISTS public.workouts DISABLE ROW LEVEL SECURITY;
-ALTER TABLE IF EXISTS public.workout_assignments DISABLE ROW LEVEL SECURITY;
+-- Note: RLS is enabled after table creation to avoid conflicts
 
 -- Create workouts table
 CREATE TABLE IF NOT EXISTS public.workouts (
@@ -44,14 +43,20 @@ CREATE TRIGGER trigger_workouts_updated_at
     FOR EACH ROW
     EXECUTE PROCEDURE public.handle_updated_at();
 
--- Enable Row Level Security (optional - for multi-user support)
--- ALTER TABLE public.workouts ENABLE ROW LEVEL SECURITY;
--- ALTER TABLE public.workout_assignments ENABLE ROW LEVEL SECURITY;
+-- Enable Row Level Security
+ALTER TABLE public.workouts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.workout_assignments ENABLE ROW LEVEL SECURITY;
 
--- Create policies (uncomment if you want user-specific data)
--- CREATE POLICY "Users can view their own workouts" ON public.workouts
---     FOR SELECT USING (auth.uid()::text = user_id);
--- CREATE POLICY "Users can insert their own workouts" ON public.workouts
---     FOR INSERT WITH CHECK (auth.uid()::text = user_id);
--- CREATE POLICY "Users can update their own workouts" ON public.workouts
---     FOR UPDATE USING (auth.uid()::text = user_id);
+-- Create RLS policies for public access (since this is a single-user app)
+-- These policies allow all authenticated and anonymous users to access data
+CREATE POLICY "Allow all access to workouts" ON public.workouts
+    FOR ALL USING (true);
+
+CREATE POLICY "Allow all access to workout_assignments" ON public.workout_assignments
+    FOR ALL USING (true);
+
+-- Alternative: If you want to restrict to authenticated users only, use these instead:
+-- CREATE POLICY "Allow authenticated access to workouts" ON public.workouts
+--     FOR ALL USING (auth.role() = 'authenticated' OR auth.role() = 'anon');
+-- CREATE POLICY "Allow authenticated access to workout_assignments" ON public.workout_assignments
+--     FOR ALL USING (auth.role() = 'authenticated' OR auth.role() = 'anon');
