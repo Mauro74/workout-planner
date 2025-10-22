@@ -1,4 +1,4 @@
-import { ActionButtonWrapper as StyledActionButtonWrapper, ActionButton, Pill } from '../styles';
+import { ActionButtonWrapper as StyledActionButtonWrapper, ActionButton } from '../styles';
 import { formatDate } from '../utils/dateUtils';
 import type { Workout, WorkoutAssignment } from '../types';
 import { MdDeleteForever, MdSave } from 'react-icons/md';
